@@ -2,28 +2,15 @@
 import { useRef } from "react";
 
 const postMsg = async (name: string | undefined, content: string | undefined) => {
-    try {
-        const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
-            method: "POST",
-            body: JSON.stringify({ name, content }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        console.log("レスポンス:", res);
-
-        if (!res.ok) {
-            const errorText = await res.text();
-            throw new Error(`HTTPエラー: ${res.status} - ${errorText}`);
-        }
-
-        return res.json();
-    } catch (error) {
-        console.error("Fetchエラー:", error);
-    }
+    const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
+        method: "POST",
+        body: JSON.stringify({ name, content }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    return res.json();
 };
-
 
 // 投稿フォーム
 function PostForm() {

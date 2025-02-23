@@ -18,7 +18,11 @@ export async function GET() {
         await connectToDatabase();  // DB接続
 
         // posts変数に取得したすべての記事を格納
-        const posts = await prisma.post.findMany();
+        const posts = await prisma.post.findMany({
+            orderBy: {
+                createdAt: "desc", // createdAt を降順 (新しい順) にソート
+            },
+        });
 
         // 取り出したメッセージを返す
         return NextResponse.json({ message: "success", posts }, { status: 200 });
