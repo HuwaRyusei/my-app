@@ -1,7 +1,26 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+type ApiResponse = { message?: string; error?: string };
 
 const prisma = new PrismaClient();
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<ApiResponse>) {
+    res.setHeader("Access-Control-Allow-Origin", "*"); // すべてのオリジンを許可
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  
+    if (req.method === "OPTIONS") {
+      return res.status(200).end();
+    }
+  
+    if (req.method === "POST") {
+      return res.status(200).json({ message: "投稿成功" });
+    }
+  
+    res.status(405).json({ error: "Method Not Allowed" });
+  }
+  
 
 // データベース接続を行う補助関数
 async function connectToDatabase() {
