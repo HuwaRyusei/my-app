@@ -22,12 +22,10 @@ function PostForm() {
     const contentRef = useRef<HTMLTextAreaElement>(null);
     
     const [progress, setProgress] = useState(0); // ロードバーの進捗
-    const [loading, setLoading] = useState(false);
 
     const hundleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
 
-        setLoading(true);
         setProgress(10); // 最初に少し進捗を表示
 
         // ポスト
@@ -46,8 +44,6 @@ function PostForm() {
         setProgress(100);
         setTimeout(() => setProgress(0), 1000); // 完了後に少し待機してからバーをリセット
 
-        // 画面のリフレッシュ
-        router.refresh();
     }
 
     return (
