@@ -1,6 +1,6 @@
 
 import { PostType } from "@/types";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 
 async function fetchAll() {
