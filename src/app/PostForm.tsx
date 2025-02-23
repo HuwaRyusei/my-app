@@ -35,8 +35,7 @@ function PostForm() {
         setProgress(50);
 
         // 中身があればカラにする
-        if(nameRef.current && contentRef.current){
-            nameRef.current.value = "";
+        if(contentRef.current){
             contentRef.current.value = "";
         }
         
