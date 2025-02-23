@@ -26,6 +26,12 @@ function PostForm() {
         // ポスト
         postMsg(nameRef.current?.value, contentRef.current?.value);
 
+        // 中身があればカラにする
+        if(nameRef.current && contentRef.current){
+            nameRef.current.value = "";
+            contentRef.current.value = "";
+        }
+
         // 画面のリフレッシュ
         router.refresh();
     }
