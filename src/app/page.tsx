@@ -1,6 +1,6 @@
 
-import PostForm from "./components/PostForm";
-import PostList from "./components/PostList";
+import PostForm from "./PostForm";
+import PostList from "./PostList";
 
 export default async function Home() {
 
