@@ -39,11 +39,13 @@ function PostForm() {
             nameRef.current.value = "";
             contentRef.current.value = "";
         }
+        
+        // 画面のリフレッシュ
+        router.refresh();
 
         // 投稿が完了したら進捗を100%に設定
         setProgress(100);
         setTimeout(() => setProgress(0), 1000); // 完了後に少し待機してからバーをリセット
-
     }
 
     return (
