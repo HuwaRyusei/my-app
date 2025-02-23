@@ -1,18 +1,5 @@
-
-import { PostType } from "@/types";
-
-async function fetchAll() {
-  // 本番環境URL
-  const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data.posts;
-}
-
 export default async function Home() {
 
-  const posts = await fetchAll();
 
   return (
     <div className="bg-gray-100 font-sans text-gray-900 min-h-screen flex items-center justify-center">
@@ -65,7 +52,7 @@ export default async function Home() {
 
         {/* 投稿リスト */}
         <div className="mt-8 space-y-4">
-          {posts.map((post: PostType) => (
+          {/* {posts.map((post: PostType) => (
             <div key={post.id} className="bg-gray-50 p-4 rounded-lg shadow-sm">
               <div className="flex items-center mb-2">
                 <span className="font-bold text-gray-800">{post.name}</span>
@@ -75,7 +62,7 @@ export default async function Home() {
               </div>
               <p className="text-gray-700">{post.content}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
