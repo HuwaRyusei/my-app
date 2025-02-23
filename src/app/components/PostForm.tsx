@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const postMsg = async (name: string | undefined, content: string | undefined) => {
     const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
@@ -15,6 +16,7 @@ const postMsg = async (name: string | undefined, content: string | undefined) =>
 // 投稿フォーム
 function PostForm() {
 
+    const router = useRouter();
     const nameRef = useRef<HTMLInputElement>(null);
     const contentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -23,6 +25,9 @@ function PostForm() {
 
         // ポスト
         postMsg(nameRef.current?.value, contentRef.current?.value);
+
+        // 画面のリフレッシュ
+        router.refresh();
     }
 
     return (
