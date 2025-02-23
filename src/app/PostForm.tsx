@@ -45,7 +45,6 @@ function PostForm() {
         // 投稿が完了したら進捗を100%に設定
         setProgress(100);
         setTimeout(() => setProgress(0), 1000); // 完了後に少し待機してからバーをリセット
-        setLoading(false);
 
         // 画面のリフレッシュ
         router.refresh();
@@ -54,7 +53,7 @@ function PostForm() {
     return (
         <form className="space-y-6" onSubmit={hundleSubmit}>
             {/* ローディング中のみロードバーの表示 */}
-            {loading && <ProgressBar progress={progress} />}
+            <ProgressBar progress={progress} />
             {/* 名前入力と送信ボタン */}
             <div className="flex items-center space-x-4">
                 <div className="flex flex-col w-full">
