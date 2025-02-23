@@ -10,7 +10,7 @@ export default async function Home() {
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">情専掲示板(非公式)</h1>
 
         <PostForm />
-
+    
         <PostList />
       </div>
     </div>

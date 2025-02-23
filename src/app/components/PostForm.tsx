@@ -1,3 +1,6 @@
+"use client";
+import { useRef } from "react";
+
 const postMsg = async (name: string | undefined, content: string | undefined) => {
     const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
         method: "POST",
@@ -11,12 +14,24 @@ const postMsg = async (name: string | undefined, content: string | undefined) =>
 
 // 投稿フォーム
 function PostForm() {
+
+    const nameRef = useRef<HTMLInputElement | null>(null);
+    const contentRef = useRef<HTMLTextAreaElement | null>(null);
+
+    const hundleSubmit = (e: React.FormEvent) =>{
+        e.preventDefault();
+
+        // ポスト
+        postMsg(nameRef.current?.value, contentRef.current?.value);
+    }
+
     return (
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={hundleSubmit}>
             {/* 名前入力と送信ボタン */}
             <div className="flex items-center space-x-4">
                 <div className="flex flex-col w-full">
                     <input
+                        ref={nameRef}
                         type="text"
                         id="name"
                         name="name"
@@ -45,6 +60,7 @@ function PostForm() {
             {/* 文章入力 */}
             <div className="flex flex-col">
                 <textarea
+                    ref={contentRef}
                     id="message"
                     name="message"
                     rows={4}
