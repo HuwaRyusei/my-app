@@ -1,6 +1,7 @@
 "use client";
-import { useRef } from "react";
+import { useRef,useState } from "react";
 import { useRouter } from "next/navigation";
+import ProgressBar from "./components/ProgressBar";
 
 const postMsg = async (name: string | undefined, content: string | undefined) => {
     const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
@@ -19,12 +20,21 @@ function PostForm() {
     const router = useRouter();
     const nameRef = useRef<HTMLInputElement>(null);
     const contentRef = useRef<HTMLTextAreaElement>(null);
+    
+    const [progress, setProgress] = useState(0); // ロードバーの進捗
+    const [loading, setLoading] = useState(false);
 
     const hundleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
 
+        setLoading(true);
+        setProgress(10); // 最初に少し進捗を表示
+
         // ポスト
         postMsg(nameRef.current?.value, contentRef.current?.value);
+
+        // 進捗が50%まで進んだとして表示
+        setProgress(50);
 
         // 中身があればカラにする
         if(nameRef.current && contentRef.current){
@@ -32,12 +42,19 @@ function PostForm() {
             contentRef.current.value = "";
         }
 
+        // 投稿が完了したら進捗を100%に設定
+        setProgress(100);
+        setTimeout(() => setProgress(0), 1000); // 完了後に少し待機してからバーをリセット
+        setLoading(false);
+
         // 画面のリフレッシュ
         router.refresh();
     }
 
     return (
         <form className="space-y-6" onSubmit={hundleSubmit}>
+            {/* ローディング中のみロードバーの表示 */}
+            {loading && <ProgressBar progress={progress} />}
             {/* 名前入力と送信ボタン */}
             <div className="flex items-center space-x-4">
                 <div className="flex flex-col w-full">
