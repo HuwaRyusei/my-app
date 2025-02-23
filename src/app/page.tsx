@@ -2,7 +2,8 @@
 import { PostType } from "@/types";
 
 async function fetchAll() {
-  const res = await fetch(`http://localhost:3000/api`, {
+  // 本番環境URL
+  const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
     cache: "no-store",
   });
   const data = await res.json();
