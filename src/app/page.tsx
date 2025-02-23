@@ -10,6 +10,17 @@ async function fetchAll() {
   return data.posts;
 }
 
+const postMsg = async (name: string | undefined, content: string | undefined) => {
+  const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
+    method: "POST",
+    body: JSON.stringify({ name, content }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.json();
+};
+
 export default async function Home() {
 
   const posts = await fetchAll();
