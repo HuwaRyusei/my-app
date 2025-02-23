@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "my-app",
-  description: "初めてのデプロイ",
+  title: "情専掲示板",
+  description: "情専の掲示板(非公式)",
 };
 
 export default function RootLayout({
