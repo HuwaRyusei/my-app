@@ -2,21 +2,34 @@
 import { useRef } from "react";
 
 const postMsg = async (name: string | undefined, content: string | undefined) => {
-    const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
-        method: "POST",
-        body: JSON.stringify({ name, content }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.json();
+    try {
+        const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
+            method: "POST",
+            body: JSON.stringify({ name, content }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        console.log("レスポンス:", res);
+
+        if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`HTTPエラー: ${res.status} - ${errorText}`);
+        }
+
+        return res.json();
+    } catch (error) {
+        console.error("Fetchエラー:", error);
+    }
 };
+
 
 // 投稿フォーム
 function PostForm() {
 
-    const nameRef = useRef<HTMLInputElement | null>(null);
-    const contentRef = useRef<HTMLTextAreaElement | null>(null);
+    const nameRef = useRef<HTMLInputElement>(null);
+    const contentRef = useRef<HTMLTextAreaElement>(null);
 
     const hundleSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
