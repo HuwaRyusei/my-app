@@ -1,7 +1,7 @@
 "use client";
 import { useRef,useState } from "react";
 import { useRouter } from "next/navigation";
-import ProgressBar from "./components/ProgressBar";
+import ProgressBar from "../components/ProgressBar";
 
 const postMsg = async (name: string | undefined, content: string | undefined) => {
     const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
@@ -49,7 +49,7 @@ function PostForm() {
 
     return (
         <form className="space-y-6" onSubmit={hundleSubmit}>
-            {/* ローディング中のみロードバーの表示 */}
+            {/* ロードバーの表示 */}
             <ProgressBar progress={progress} />
             {/* 名前入力と送信ボタン */}
             <div className="flex items-center space-x-4">

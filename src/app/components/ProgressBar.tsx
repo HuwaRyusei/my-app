@@ -9,7 +9,7 @@ const ProgressBar = ({ progress }: ProgressBarProps) => {
                 style={{
                     height: '5px',
                     width: `${progress}%`,
-                    backgroundColor: 'green',
+                    backgroundColor: '#3b82f6',
                     borderRadius: '5px',
                     transition: 'width 0.2s ease-out',
                 }}

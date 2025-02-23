@@ -1,19 +1,62 @@
+"use client"
 
-import PostForm from "./PostForm";
-import PostList from "./PostList";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import ProgressBar from "./components/ProgressBar";
 
-export default async function Home() {
+const PASSWORD = "jyousen123"; // 共有パスワード
 
-  return (
-    <div className="bg-gray-100 font-sans text-gray-900 min-h-screen flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">情専掲示板(非公式)</h1>
+export default function Home() {
+    const [inputPassword, setInputPassword] = useState("");
+    const router = useRouter();
+    // エラーメッセージ用
+    const [errMsg, setErrMsg] = useState("");
+    // ロードバー用
+    const [progress, setProgress] = useState(0); 
 
-        <PostForm />
-    
-        <PostList />
-      </div>
-    </div>
-  );
-  
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (inputPassword === PASSWORD) {
+            setProgress(20);
+            localStorage.setItem("authenticated", "true");
+            setProgress(80);
+            router.push("/home"); // 認証成功後にリダイレクト
+            setProgress(100);
+        } else {
+            setErrMsg("パスワードが違います");
+        }
+    };
+
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-2xl">
+                
+                <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+                    パスワードを入力
+                </h1>
+
+                {/* ロードバーの表示 */}
+                <ProgressBar progress={progress} />
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                        type="password"
+                        value={inputPassword}
+                        onChange={(e) => setInputPassword(e.target.value)}
+                        placeholder="パスワードを入力"
+                        className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <p className="text-red-500">{errMsg}</p>
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
+                    >
+                        送信
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 }
+
