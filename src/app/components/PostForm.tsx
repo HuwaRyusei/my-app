@@ -1,0 +1,60 @@
+const postMsg = async (name: string | undefined, content: string | undefined) => {
+    const res = await fetch(`https://my-app-theta-ten-80.vercel.app/api`, {
+        method: "POST",
+        body: JSON.stringify({ name, content }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    return res.json();
+};
+
+// 投稿フォーム
+function PostForm() {
+    return (
+        <form className="space-y-6">
+            {/* 名前入力と送信ボタン */}
+            <div className="flex items-center space-x-4">
+                <div className="flex flex-col w-full">
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        placeholder="投稿名"
+                        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300 w-full"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    className="px-3 py-5 text-white font-semibold rounded-lg transition duration-300"
+                >
+                    {/* 送信アイコン */}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#5f6368"
+                    >
+                        <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+                    </svg>
+                </button>
+            </div>
+
+            {/* 文章入力 */}
+            <div className="flex flex-col">
+                <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    required
+                    placeholder="投稿内容"
+                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-300 w-full"
+                />
+            </div>
+        </form>
+    );
+};
+
+export default PostForm;
