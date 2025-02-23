@@ -1,8 +1,5 @@
-"use client";
 
 import { PostType } from "@/types";
-import { useRef } from "react";
-
 
 async function fetchAll() {
   // 本番環境URL
@@ -27,18 +24,6 @@ const postMsg = async (name: string | undefined, content: string | undefined) =>
 export default async function Home() {
 
   const posts = await fetchAll();
-  const nameRef = useRef<HTMLInputElement | null>(null);
-  const contentRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const hundleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // ブログの投稿
-    postMsg(nameRef.current?.value, contentRef.current?.value);
-
-    // リフレッシュ
-    window.location.reload();
-  };
 
   return (
     <div className="bg-gray-100 font-sans text-gray-900 min-h-screen flex items-center justify-center">
